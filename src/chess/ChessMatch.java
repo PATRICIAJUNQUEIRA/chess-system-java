@@ -1,6 +1,5 @@
 package chess;
 
-import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -123,7 +122,7 @@ public class ChessMatch {
 			throw new IllegalStateException("There is no piece to be promoted");
 		}
 		if (!type.equals("B") && !type.equals("N") && !type.equals("R") & !type.equals("Q")) {
-			throw new InvalidParameterException("Invalid type for promotion");
+			return promoted;
 		}
 		
 		Position pos = promoted.getChessPosition().toPosition();
@@ -211,7 +210,6 @@ public class ChessMatch {
 			board.placePiece(rook, sourceT);
 			rook.decreaseMoveCount();
 		}
-		
 
 		// #specialmove castling queenside rook
 		if (p instanceof King && target.getColum() == source.getColum() - 2) {
@@ -223,7 +221,6 @@ public class ChessMatch {
 		}
 		
 		// #specialmove en passant
-		
 		if (p instanceof Pawn) {
 			if (source.getColum() != target.getColum() && capturedPiece == enPassantVulnerable) {
 				ChessPiece pawn = (ChessPiece)board.removePiece(target);
